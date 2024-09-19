@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 public class exercici_10 {
     public static void main(String[] args) {
     	// Contingut que es vol escriure al fitxer
-    	int firstNum = -5;
+    	int firstNum = 1;
     	int lastNum = 100;
     	
         // Nom del fitxer binari
