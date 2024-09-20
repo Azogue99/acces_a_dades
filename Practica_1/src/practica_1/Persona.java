@@ -3,6 +3,10 @@ package practica_1;
 import java.io.Serializable;
 
 public class Persona implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L; // Perque com es un objecte serialitzable ha de tenir un numero de serie
 	private String nom;
 	private int edat;
 	
