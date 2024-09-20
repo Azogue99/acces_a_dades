@@ -5,7 +5,7 @@ import java.io.FileWriter;
 public class exercici_06 {
 	public static void main(String[] args) {
 		// Nom del fitxer
-        String filePath = "Exercici06.txt";
+        String filePath = "Exercici_06.txt";
 		
         // Array de cadenes
         String[] arrayCadenes = {
