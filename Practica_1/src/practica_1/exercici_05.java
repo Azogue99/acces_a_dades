@@ -5,7 +5,7 @@ import java.io.FileWriter;
 public class exercici_05 {
 	public static void main(String[] args) {
         String text = "Aquest és el text que es vol escriure en el fitxer.";
-        String filePath = "Exercici05.txt";
+        String filePath = "Exercici_05.txt";
 
         try (FileWriter writer = new FileWriter(filePath)) { // Obrir el fitxer (es crearà si no existeix)
             

@@ -12,7 +12,7 @@ public class exercici_10 {
     	int lastNum = 100;
     	
         // Nom del fitxer binari
-        String filePath = "Exercise10.dat";
+        String filePath = "Exercici_10.dat";
 
         // Escriure els números sencers de l'1 al 100 en el fitxer binari
         try (DataOutputStream dataOS = new DataOutputStream(new FileOutputStream(filePath))) {
@@ -35,7 +35,6 @@ public class exercici_10 {
         	
         } catch (Exception e) {
             System.out.println("Error en lectura.");
-            e.printStackTrace();
         }
     }
 }

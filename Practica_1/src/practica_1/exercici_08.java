@@ -10,7 +10,7 @@ public class exercici_08 {
         int numeroFinal = 10;
 
         // Nom del fitxer
-        String filePath = "Exercici08.txt";
+        String filePath = "Exercici_08.txt";
 
         try (FileWriter writer = new FileWriter(filePath)) { // Obrir el fitxer (es crearà si no existeix)
         	for (int i = numeroInicial; i <= numeroFinal; i++) {

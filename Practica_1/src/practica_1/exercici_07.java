@@ -6,7 +6,7 @@ import java.io.FileReader;
 public class exercici_07 {
 	public static void main(String[] args) {
 		// Nom del fitxer a llegir
-        String filePath = "Exercici06.txt";
+        String filePath = "Exercici_06.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String linea;
