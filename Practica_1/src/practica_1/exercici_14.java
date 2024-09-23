@@ -25,7 +25,7 @@ public class exercici_14 {
                     break;
                 }
             }
-
+            
         } catch (Exception e) {
             System.out.println("Error.");
             e.printStackTrace();

@@ -17,8 +17,8 @@ public class exercici_04 {
         		
         		raf.read(bytes); // Omple el buffer de memoria amb la propietat read
         		
-        		System.out.println(new String(bytes)); // Mostra per pantalla els caracters d'aquesta iteració
-        		System.out.println("----------"); // Fes una linia separadora.
+        		System.out.print(new String(bytes)); // Mostra per pantalla els caracters d'aquesta iteració
+        		System.out.print("|||"); // Fes una linia separadora.
         		
 			} while (raf.getFilePointer() < raf.length()); // Fes aixo mentres el pointer no hagi arribat al final del fitxer.
         	
