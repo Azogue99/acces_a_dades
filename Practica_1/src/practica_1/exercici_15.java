@@ -1,8 +1,6 @@
 package practica_1;
 
 import java.io.RandomAccessFile;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class exercici_15 {
     public static void main(String[] args) {
@@ -38,7 +36,7 @@ public class exercici_15 {
                 System.out.printf("ID: %d, Cognom: %s, Departament: %d, Salari: %.2f\n", id, cognom, departament, salari);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error.");
         }
     }
