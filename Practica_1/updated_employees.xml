@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-model href=""?><company>
+
+  <department name="IT">
+  
+    <employee name="Alice" position="Developer" salary="50000"/>
+    <employee name="Bob" position="SysAdmin" salary="45000"/>
+    
+      <sub-department name="Security">
+        <employee name="Charlie" position="Senior Security Analyst" salary="65000"/>
+      </sub-department>
+      
+  </department>
+  
+  <department name="HR">
+  
+    
+    <employee name="Eve" position="Recruiter" salary="40000"/>
+    
+  </department>
+  
+</company>

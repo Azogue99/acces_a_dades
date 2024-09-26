@@ -31,7 +31,7 @@ public class exercici_17 {
             Transformer transformer = transformerFactory.newTransformer();
             
             // Guardar el fitxer XML
-            StreamResult result = new StreamResult(new File("company.xml"));
+            StreamResult result = new StreamResult(new File("employees.xml"));
             DOMSource source = new DOMSource(doc);
             transformer.transform(source, result);
 

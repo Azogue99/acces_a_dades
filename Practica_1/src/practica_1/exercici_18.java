@@ -12,7 +12,7 @@ public class exercici_18 {
     public static void main(String[] args) {
         try {
             // Document XML
-            InputSource fileXML = new InputSource("company.xml");
+            InputSource fileXML = new InputSource("employees.xml");
 
             // Crear el SAXParser
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -21,10 +21,12 @@ public class exercici_18 {
 
             // Handler per gestionar els esdeveniments SAX
             DefaultHandler handler = new DefaultHandler() {
-
+            	String departmentName = "";
                 public void startElement(String uri, String localName, String qName, Attributes attributes) {
+                	
+                	
                     if (qName.equalsIgnoreCase("department")) {
-                        String departmentName = attributes.getValue("name");
+                        departmentName = attributes.getValue("name");
                         System.out.println("Department: " + departmentName);
                     } else if (qName.equalsIgnoreCase("employee")) {
                         String name = attributes.getValue("name");
@@ -35,7 +37,7 @@ public class exercici_18 {
                         System.out.println("\tSalary: " + salary);
                     } else if (qName.equalsIgnoreCase("sub-department")) {
                         String subDepartmentName = attributes.getValue("name");
-                        System.out.println("\tSub-department: " + subDepartmentName);
+                        System.out.println("Department: "+ departmentName + " | Sub-department: " + subDepartmentName);
                     }
                 }
             };
