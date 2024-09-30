@@ -24,10 +24,10 @@
 		                    <th>Edat</th>
 		                </tr>
 		                <xsl:for-each select="studentslist/student">
-	                    <tr>
-	                        <td><xsl:value-of select="@name"/></td>
-	                        <td><xsl:value-of select="@age"/></td>
-	                    </tr>
+		                    <tr>
+		                        <td><xsl:value-of select="@name"/></td>
+		                        <td><xsl:value-of select="@age"/></td>
+		                    </tr>
 		                </xsl:for-each>
 		            </table>
         		</div>
