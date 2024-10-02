@@ -5,7 +5,7 @@ https://drive.google.com/file/d/1jpQteqm3JjFBwDulBMPL7DDrSwl18XDf/view
 <br>
 <br>
 <h3>Apunts:</h3>
-https://drive.google.com/file/d/1jpQteqm3JjFBwDulBMPL7DDrSwl18XDf/view
+https://drive.google.com/file/d/1VQzA3hMopjVs_sh_3en7lpbJXnUpfrum/view
 <br>
 <br>
 <h3>Tutorial XML dom i SAX: </h3>
