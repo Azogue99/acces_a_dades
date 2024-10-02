@@ -8,5 +8,5 @@ https://drive.google.com/file/d/1jpQteqm3JjFBwDulBMPL7DDrSwl18XDf/view
 https://drive.google.com/file/d/1VQzA3hMopjVs_sh_3en7lpbJXnUpfrum/view
 <br>
 <br>
-<h3>Tutorial XML dom i SAX: </h3>
+<h3>Tutorial XML | DOM i SAX: </h3>
 https://www.youtube.com/watch?v=Ao3Tr1jy7IU
