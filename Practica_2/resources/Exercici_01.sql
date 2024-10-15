@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS botiga;
+USE botiga;
+
 CREATE TABLE categories (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(100) NOT NULL,
