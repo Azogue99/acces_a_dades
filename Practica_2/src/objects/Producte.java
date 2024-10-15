@@ -12,7 +12,23 @@ public class Producte {
         this.categoria = categoria;
     }
     
-    public int getId() {
+    public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setPreu(double preu) {
+		this.preu = preu;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public int getId() {
     	return id;
     }
 

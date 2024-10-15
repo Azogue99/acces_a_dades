@@ -1,28 +1,28 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import objects.Client;
+import objects.Comanda;
 import objects.Producte;
 import DB.DatabaseConnection;
 
 public class Exercici_03 {
 
     @FXML
-    private TextField clientIDField;
+    private ComboBox<Client> clientComboBox;
+
+    @FXML
+    private ComboBox<Comanda> comandaComboBox;
 
     @FXML
     private ComboBox<Producte> producteComboBox;
@@ -31,33 +31,41 @@ public class Exercici_03 {
     private TextField quantitatField;
 
     private Connection connection;
-    
+
     @FXML
-    private void tornarAlMenu(ActionEvent event) {
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        MainMenu.tornarAlMenuPrincipal(stage);
-    }
-
-    // Mètode per inicialitzar la connexió amb la base de dades
-    public void initialize() {
+    private void initialize() {
         connection = DatabaseConnection.getConnection();
+        carregarClients();
         carregarProductes();
+
+        // Afegeix un listener al ComboBox de clients
+        clientComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                carregarComandes();
+            }
+        });
     }
 
-    // Mètode per carregar els productes al ComboBox
-    private void carregarProductes() {
-        try {
-            String query = "SELECT id, nom, preu, id_categoria FROM productes";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
+    private void carregarClients() {
+        String query = "SELECT id, nom FROM clients";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                int idProducte = rs.getInt("id");
-                String nomProducte = rs.getString("nom");
-                double preuProducte = rs.getDouble("preu");
-                String categoriaProducte = rs.getString("id_categoria");
+                Client client = new Client(rs.getInt("id"), rs.getString("nom"));
+                clientComboBox.getItems().add(client);
+            }
+        } catch (SQLException e) {
+            mostrarError("Error al carregar els clients: " + e.getMessage());
+        }
+    }
 
-                Producte producte = new Producte(nomProducte, preuProducte, categoriaProducte);
+    private void carregarProductes() {
+        String query = "SELECT id, nom, preu, id_categoria FROM productes";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Producte producte = new Producte(rs.getString("nom"), rs.getDouble("preu"), rs.getString("id_categoria"));
+                producte.setId(rs.getInt("id"));
                 producteComboBox.getItems().add(producte);
             }
         } catch (SQLException e) {
@@ -65,80 +73,89 @@ public class Exercici_03 {
         }
     }
 
-
-    // Mètode per afegir la comanda i els seus detalls
     @FXML
-    private void afegirComanda() {
-        String clientIDText = clientIDField.getText();
-        String quantitatText = quantitatField.getText();
-        Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
+    private void afegirComanda(ActionEvent event) {
+        Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
+        if (clientSeleccionat == null) {
+            mostrarError("Selecciona un client per crear una nova comanda.");
+            return;
+        }
+        try {
+            String insertComandaSQL = "INSERT INTO comandes (id_client) VALUES (?)";
+            PreparedStatement pstmt = connection.prepareStatement(insertComandaSQL);
+            pstmt.setInt(1, clientSeleccionat.getId());
+            pstmt.executeUpdate();
+            mostrarMissatge("Nova comanda creada per a l'usuari: " + clientSeleccionat.getNom());
+            carregarComandes();
+        } catch (SQLException e) {
+            mostrarError("Error al crear la comanda: " + e.getMessage());
+        }
+    }
 
-        if (clientIDText.isEmpty() || quantitatText.isEmpty() || producteSeleccionat == null) {
-            mostrarError("Si us plau, completa tots els camps.");
+    private void carregarComandes() {
+        Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
+        if (clientSeleccionat == null) {
+            return;
+        }
+        String query = "SELECT id FROM comandes WHERE id_client = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, clientSeleccionat.getId());
+            try (ResultSet rs = stmt.executeQuery()) {
+                comandaComboBox.getItems().clear();
+                while (rs.next()) {
+                    Comanda comanda = new Comanda(rs.getInt("id"));
+                    comandaComboBox.getItems().add(comanda);
+                }
+            }
+        } catch (SQLException e) {
+            mostrarError("Error al carregar les comandes: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void afegirProducteComanda(ActionEvent event) {
+        Comanda comandaSeleccionada = comandaComboBox.getSelectionModel().getSelectedItem();
+        Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
+        String quantitatText = quantitatField.getText();
+        
+        if (comandaSeleccionada == null || producteSeleccionat == null || quantitatText.isEmpty()) {
+            mostrarError("Selecciona una comanda, un producte i introdueix la quantitat.");
             return;
         }
 
         try {
-            // Iniciem una transacció
-            connection.setAutoCommit(false);
-
-            // Inserir la comanda a la taula `comandes`
-            String insertComandaSQL = "INSERT INTO comandes (data_comanda, client_id) VALUES (?, ?)";
-            PreparedStatement pstmtComanda = connection.prepareStatement(insertComandaSQL, Statement.RETURN_GENERATED_KEYS);
-            pstmtComanda.setDate(1, new Date(System.currentTimeMillis()));
-            pstmtComanda.setInt(2, Integer.parseInt(clientIDText));  // Client ID de la interfície
-            pstmtComanda.executeUpdate();
-
-            // Recuperar l'ID generat per la nova comanda
-            ResultSet rs = pstmtComanda.getGeneratedKeys();
-            int idComanda = 0;
-            if (rs.next()) {
-                idComanda = rs.getInt(1);
-            }
-
-            // Inserir els detalls de la comanda a la taula `detalls_comanda`
-            String insertDetallsSQL = "INSERT INTO detalls_comanda (id_comanda, id, quantitat) VALUES (?, ?, ?)";
-            PreparedStatement pstmtDetalls = connection.prepareStatement(insertDetallsSQL);
-
-            // Afegim els productes associats a la comanda
-            pstmtDetalls.setInt(1, idComanda);
-            pstmtDetalls.setInt(2, producteSeleccionat.getId());
-            pstmtDetalls.setInt(3, Integer.parseInt(quantitatText));
-            pstmtDetalls.executeUpdate();
-
-            // Confirmem la transacció
-            connection.commit();
-            mostrarMissatge("Comanda afegida correctament!");
-
+            int quantitat = Integer.parseInt(quantitatText);
+            String insertDetallsSQL = "INSERT INTO detalls_comanda (id_comanda, id_producte, quantitat) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(insertDetallsSQL);
+            pstmt.setInt(1, comandaSeleccionada.getId());
+            pstmt.setInt(2, producteSeleccionat.getId());
+            pstmt.setInt(3, quantitat);
+            pstmt.executeUpdate();
+            mostrarMissatge("Producte afegit a la comanda correctament.");
+        } catch (NumberFormatException e) {
+            mostrarError("La quantitat ha de ser un número.");
         } catch (SQLException e) {
-            try {
-                connection.rollback();  // Revertim els canvis en cas d'error
-                mostrarError("Error al afegir la comanda: " + e.getMessage());
-            } catch (SQLException rollbackEx) {
-                mostrarError("Error al revertir la transacció: " + rollbackEx.getMessage());
-            }
-        } finally {
-            try {
-                connection.setAutoCommit(true);  // Tornem a activar l'auto-commit
-            } catch (SQLException e) {
-                mostrarError("Error al restablir l'auto-commit: " + e.getMessage());
-            }
+            mostrarError("Error al afegir el producte a la comanda: " + e.getMessage());
         }
     }
 
-    // Mètode per mostrar missatges d'error
     private void mostrarError(String missatge) {
-        Alert alert = new Alert(AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setContentText(missatge);
         alert.showAndWait();
     }
 
-    // Mètode per mostrar missatges informatius
     private void mostrarMissatge(String missatge) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info");
         alert.setContentText(missatge);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void tornarAlMenu(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        MainMenu.tornarAlMenuPrincipal(stage);
     }
 }
