@@ -1,10 +1,13 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import objects.Producte;
 
 import java.sql.*;
@@ -28,6 +31,12 @@ public class Exercici_02 {
     // Constructor
     public Exercici_02() {
         // Iniciem la connexió amb la base de dades si cal
+    }
+    
+    @FXML
+    private void tornarAlMenu(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        MainMenu.tornarAlMenuPrincipal(stage);
     }
 
     @FXML

@@ -8,11 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import objects.Producte;
 import DB.DatabaseConnection;
 
@@ -28,6 +31,12 @@ public class Exercici_03 {
     private TextField quantitatField;
 
     private Connection connection;
+    
+    @FXML
+    private void tornarAlMenu(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        MainMenu.tornarAlMenuPrincipal(stage);
+    }
 
     // Mètode per inicialitzar la connexió amb la base de dades
     public void initialize() {
@@ -38,7 +47,7 @@ public class Exercici_03 {
     // Mètode per carregar els productes al ComboBox
     private void carregarProductes() {
         try {
-            String query = "SELECT id, nom, preu, categoria FROM productes";
+            String query = "SELECT id, nom, preu, id_categoria FROM productes";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
@@ -46,7 +55,7 @@ public class Exercici_03 {
                 int idProducte = rs.getInt("id");
                 String nomProducte = rs.getString("nom");
                 double preuProducte = rs.getDouble("preu");
-                String categoriaProducte = rs.getString("categoria");
+                String categoriaProducte = rs.getString("id_categoria");
 
                 Producte producte = new Producte(nomProducte, preuProducte, categoriaProducte);
                 producteComboBox.getItems().add(producte);

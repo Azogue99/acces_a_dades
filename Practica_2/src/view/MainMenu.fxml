@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="controller.MainMenu" 
+            alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+    
+    <!-- Botons per seleccionar els exercicis -->
+    <Button text="Exercici 1" onAction="#carregarExercici1"/>
+    <Button text="Exercici 2" onAction="#carregarExercici2"/>
+    <Button text="Exercici 3" onAction="#carregarExercici3"/>
+
+</VBox>

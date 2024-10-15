@@ -1,8 +1,11 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,6 +43,12 @@ public class Exercici_01 {
 
     @FXML
     private Button inserirClient;
+    
+    @FXML
+    private void tornarAlMenu(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        MainMenu.tornarAlMenuPrincipal(stage);
+    }
 
     @FXML
     public void initialize() {

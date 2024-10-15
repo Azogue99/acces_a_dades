@@ -27,4 +27,9 @@ public class Producte {
     public String getCategoria() {
         return categoria;
     }
+    
+    @Override
+    public String toString() {
+        return nom; // Devuelve el nombre del producto
+    }
 }
