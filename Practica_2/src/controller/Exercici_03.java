@@ -87,6 +87,7 @@ public class Exercici_03 {
             pstmt.executeUpdate();
             mostrarMissatge("Nova comanda creada per a l'usuari: " + clientSeleccionat.getNom());
             carregarComandes();
+            
         } catch (SQLException e) {
             mostrarError("Error al crear la comanda: " + e.getMessage());
         }
