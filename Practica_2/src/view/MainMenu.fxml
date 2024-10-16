@@ -12,5 +12,7 @@
     <Button text="Exercici 1" onAction="#carregarExercici1"/>
     <Button text="Exercici 2" onAction="#carregarExercici2"/>
     <Button text="Exercici 3" onAction="#carregarExercici3"/>
+    <Button text="Exercici 4" onAction="#carregarExercici4"/>
+    <Button text="Exercici 5" onAction="#carregarExercici5"/>
 
 </VBox>

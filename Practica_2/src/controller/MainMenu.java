@@ -24,6 +24,16 @@ public class MainMenu {
     private void carregarExercici3(ActionEvent event) {
         carregarExercici("/view/Exercici_03.fxml", "Practica 2 - Exercici 3", event);
     }
+    
+    @FXML
+    private void carregarExercici4(ActionEvent event) {
+        carregarExercici("/view/Exercici_04.fxml", "Practica 2 - Exercici 4", event);
+    }
+    
+    @FXML
+    private void carregarExercici5(ActionEvent event) {
+        carregarExercici("/view/Exercici_05.fxml", "Practica 2 - Exercici 5", event);
+    }
 
     private void carregarExercici(String fxmlPath, String title, ActionEvent event) {
         try {
