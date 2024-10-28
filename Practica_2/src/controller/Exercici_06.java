@@ -10,19 +10,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import objects.Producte;
 import DB.DatabaseConnection;
 
-public class Exercici_05 {
+public class Exercici_06 {
 
     @FXML
     private ComboBox<Producte> producteComboBox;
-
-    @FXML
-    private TextField preuField;
 
     private Connection connection;
 
@@ -36,9 +32,6 @@ public class Exercici_05 {
     public void initialize() {
         connection = DatabaseConnection.getConnection();
         carregarProductes();
-
-        // Afegir listener per carregar el preu quan es selecciona un producte
-        producteComboBox.setOnAction(event -> carregarPreu());
     }
 
     // Mètode per carregar els productes al ComboBox
@@ -62,37 +55,34 @@ public class Exercici_05 {
         }
     }
 
-    // Mètode per carregar el preu del producte seleccionat
-    private void carregarPreu() {
-        Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
-        if (producteSeleccionat != null) {
-            preuField.setText(String.valueOf(producteSeleccionat.getPreu()));
-        }
-    }
-
-    // Mètode per actualitzar el preu del producte
+    // Mètode per eliminar un producte
     @FXML
-    private void actualitzarPreu() {
+    private void eliminarProducte() {
         Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
-        String nouPreuText = preuField.getText();
 
-        if (producteSeleccionat == null || nouPreuText.isEmpty()) {
-            mostrarError("Si us plau, selecciona un producte i introdueix el nou preu.");
+        if (producteSeleccionat == null) {
+            mostrarError("Si us plau, selecciona un producte per eliminar.");
             return;
         }
 
         try {
-            double nouPreu = Double.parseDouble(nouPreuText);
-            String query = "UPDATE productes SET preu = ? WHERE nom = ?";
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setDouble(1, nouPreu);
-            pstmt.setString(2, producteSeleccionat.getNom());
-            pstmt.executeUpdate();
-            mostrarMissatge("Preu actualitzat correctament!");
+            // Primer eliminem els detalls associats a les comandes d'aquest producte
+            String deleteDetallsSQL = "DELETE FROM detalls_comanda WHERE id_producte = (SELECT id FROM productes WHERE nom = ?)";
+            PreparedStatement pstmtDetalls = connection.prepareStatement(deleteDetallsSQL);
+            pstmtDetalls.setString(1, producteSeleccionat.getNom());
+            pstmtDetalls.executeUpdate();
+
+            // Ara eliminem el producte
+            String deleteProducteSQL = "DELETE FROM productes WHERE nom = ?";
+            PreparedStatement pstmtProducte = connection.prepareStatement(deleteProducteSQL);
+            pstmtProducte.setString(1, producteSeleccionat.getNom());
+            pstmtProducte.executeUpdate();
+
+            producteComboBox.getItems().remove(producteSeleccionat);  // Eliminem el producte del ComboBox
+            mostrarMissatge("Producte eliminat correctament!");
+
         } catch (SQLException e) {
-            mostrarError("Error al actualitzar el preu: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            mostrarError("Si us plau, introdueix un preu vàlid.");
+            mostrarError("Error al eliminar el producte: " + e.getMessage());
         }
     }
 

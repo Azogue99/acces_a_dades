@@ -1,162 +1,92 @@
 package controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import objects.Client;
-import objects.Comanda;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import objects.Producte;
-import DB.DatabaseConnection;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Exercici_03 {
 
     @FXML
-    private ComboBox<Client> clientComboBox;
+    private ComboBox<String> categoriaComboBox;
 
     @FXML
-    private ComboBox<Comanda> comandaComboBox;
+    private TableView<Producte> productesTableView;
 
     @FXML
-    private ComboBox<Producte> producteComboBox;
+    private TableColumn<Producte, String> nomColumn;
 
     @FXML
-    private TextField quantitatField;
+    private TableColumn<Producte, Double> preuColumn;
 
-    private Connection connection;
-
-    @FXML
-    private void initialize() {
-        connection = DatabaseConnection.getConnection();
-        carregarClients();
-        carregarProductes();
-
-        // Afegeix un listener al ComboBox de clients
-        clientComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                carregarComandes();
-            }
-        });
+    // Constructor
+    public Exercici_03() {
+        // Iniciem la connexió amb la base de dades si cal
     }
-
-    private void carregarClients() {
-        String query = "SELECT id, nom FROM clients";
-        try (PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Client client = new Client(rs.getInt("id"), rs.getString("nom"));
-                clientComboBox.getItems().add(client);
-            }
-        } catch (SQLException e) {
-            mostrarError("Error al carregar els clients: " + e.getMessage());
-        }
-    }
-
-    private void carregarProductes() {
-        String query = "SELECT id, nom, preu, id_categoria FROM productes";
-        try (PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Producte producte = new Producte(rs.getString("nom"), rs.getDouble("preu"), rs.getString("id_categoria"));
-                producte.setId(rs.getInt("id"));
-                producteComboBox.getItems().add(producte);
-            }
-        } catch (SQLException e) {
-            mostrarError("Error al carregar els productes: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void afegirComanda(ActionEvent event) {
-        Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
-        if (clientSeleccionat == null) {
-            mostrarError("Selecciona un client per crear una nova comanda.");
-            return;
-        }
-        try {
-            String insertComandaSQL = "INSERT INTO comandes (id_client) VALUES (?)";
-            PreparedStatement pstmt = connection.prepareStatement(insertComandaSQL);
-            pstmt.setInt(1, clientSeleccionat.getId());
-            pstmt.executeUpdate();
-            mostrarMissatge("Nova comanda creada per a l'usuari: " + clientSeleccionat.getNom());
-            carregarComandes();
-            
-        } catch (SQLException e) {
-            mostrarError("Error al crear la comanda: " + e.getMessage());
-        }
-    }
-
-    private void carregarComandes() {
-        Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
-        if (clientSeleccionat == null) {
-            return;
-        }
-        String query = "SELECT id FROM comandes WHERE id_client = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, clientSeleccionat.getId());
-            try (ResultSet rs = stmt.executeQuery()) {
-                comandaComboBox.getItems().clear();
-                while (rs.next()) {
-                    Comanda comanda = new Comanda(rs.getInt("id"));
-                    comandaComboBox.getItems().add(comanda);
-                }
-            }
-        } catch (SQLException e) {
-            mostrarError("Error al carregar les comandes: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void afegirProducteComanda(ActionEvent event) {
-        Comanda comandaSeleccionada = comandaComboBox.getSelectionModel().getSelectedItem();
-        Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
-        String quantitatText = quantitatField.getText();
-        
-        if (comandaSeleccionada == null || producteSeleccionat == null || quantitatText.isEmpty()) {
-            mostrarError("Selecciona una comanda, un producte i introdueix la quantitat.");
-            return;
-        }
-
-        try {
-            int quantitat = Integer.parseInt(quantitatText);
-            String insertDetallsSQL = "INSERT INTO detalls_comanda (id_comanda, id_producte, quantitat) VALUES (?, ?, ?)";
-            PreparedStatement pstmt = connection.prepareStatement(insertDetallsSQL);
-            pstmt.setInt(1, comandaSeleccionada.getId());
-            pstmt.setInt(2, producteSeleccionat.getId());
-            pstmt.setInt(3, quantitat);
-            pstmt.executeUpdate();
-            mostrarMissatge("Producte afegit a la comanda correctament.");
-        } catch (NumberFormatException e) {
-            mostrarError("La quantitat ha de ser un número.");
-        } catch (SQLException e) {
-            mostrarError("Error al afegir el producte a la comanda: " + e.getMessage());
-        }
-    }
-
-    private void mostrarError(String missatge) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setContentText(missatge);
-        alert.showAndWait();
-    }
-
-    private void mostrarMissatge(String missatge) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info");
-        alert.setContentText(missatge);
-        alert.showAndWait();
-    }
-
+    
     @FXML
     private void tornarAlMenu(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         MainMenu.tornarAlMenuPrincipal(stage);
+    }
+
+    @FXML
+    public void initialize() {
+        // Inicialitzem les columnes del TableView
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        preuColumn.setCellValueFactory(new PropertyValueFactory<>("preu"));
+
+        // Carregar categories al ComboBox
+        carregarCategories();
+    }
+
+    private void carregarCategories() {
+        // Carregar les categories a partir de la base de dades
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/botiga", "root", "")) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nom FROM categories");
+            while (rs.next()) {
+                categoriaComboBox.getItems().add(rs.getString("nom"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void consultarProductes() {
+        String selectedCategory = categoriaComboBox.getSelectionModel().getSelectedItem();
+        if (selectedCategory != null) {
+            productesTableView.getItems().clear(); // Esborra la taula abans de carregar nous productes
+            List<Producte> productes = obtenirProductes(selectedCategory);
+            productesTableView.getItems().addAll(productes);
+        }
+    }
+
+    private List<Producte> obtenirProductes(String categoria) {
+        List<Producte> productes = new ArrayList<>();
+        String query = "SELECT p.nom AS nom, p.preu AS preu, c.nom AS categoria FROM productes p " +
+                       "JOIN categories c ON p.id_categoria = c.id WHERE c.nom = ?";
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/botiga", "root", "");
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, categoria);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Producte producte = new Producte(rs.getString("nom"), rs.getDouble("preu"), rs.getString("categoria"));
+                productes.add(producte);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productes;
     }
 }

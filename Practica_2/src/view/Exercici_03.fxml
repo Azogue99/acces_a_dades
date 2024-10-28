@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Exercici_03">
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Exercici_04">
 
     <!-- Botó per tornar al menú -->
     <Button layoutX="30" layoutY="30" onAction="#tornarAlMenu" text="Tornar" />
