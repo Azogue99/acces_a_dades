@@ -6,19 +6,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="controller.Exercici_05">
+<AnchorPane prefHeight="720" prefWidth="1280"
+	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23"
+	fx:controller="controller.Exercici_05">
 
-    <Button layoutX="30.0" layoutY="30.0" onAction="#tornarAlMenu" text="Tornar" />
+	<Button layoutX="30.0" layoutY="30.0" onAction="#tornarAlMenu" text="Tornar" />
 
-    <!-- Etiqueta i ComboBox per seleccionar el producte -->
-    <Label layoutX="440.0" layoutY="298.0" text="Producte:" />
-    <ComboBox fx:id="producteComboBox" layoutX="540.0" layoutY="298.0" prefWidth="300" />
+	<!-- Etiqueta i ComboBox per seleccionar el producte -->
+	<Label layoutX="440.0" layoutY="298.0" text="Producte:" />
+	<ComboBox fx:id="producteComboBox" layoutX="540.0" layoutY="298.0"
+		prefWidth="300" />
 
-    <!-- Etiqueta i camp de text per al preu -->
-    <Label layoutX="440.0" layoutY="348.0" text="Preu actual:" />
-    <TextField fx:id="preuField" layoutX="540.0" layoutY="348.0" prefWidth="300" />
+	<!-- Etiqueta i camp de text per al preu -->
+	<Label layoutX="440.0" layoutY="348.0" text="Preu actual:" />
+	<TextField fx:id="preuField" layoutX="540.0" layoutY="348.0" prefWidth="300" />
 
-    <!-- Botó per actualitzar el preu -->
-    <Button layoutX="540.0" layoutY="398.0" onAction="#actualitzarPreu" prefHeight="25.0" prefWidth="300.0" text="Actualitzar Preu" />
+	<!-- Botó per actualitzar el preu -->
+	<Button layoutX="540.0" layoutY="398.0" onAction="#actualitzarPreu"
+		prefHeight="25.0" prefWidth="300.0" text="Actualitzar Preu" />
 
 </AnchorPane>

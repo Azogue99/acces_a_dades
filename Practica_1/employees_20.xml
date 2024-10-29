@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-model href=""?>
 <empleats>
-	<empleat name="Anna" position="Developer" salary="25000"/>
-	<empleat name="John" position="Manager" salary="30000"/>
-	<empleat name="Alice" position="Designer" salary="18000"/>
+	<empleat name="Anna" position="Developer" salary="25000" />
+	<empleat name="John" position="Manager" salary="30000" />
+	<empleat name="Alice" position="Designer" salary="18000" />
 </empleats>

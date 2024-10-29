@@ -10,46 +10,62 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Exercici_04">
+<AnchorPane prefHeight="720" prefWidth="1280"
+	xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="controller.Exercici_04">
 
-    <!-- Botó per tornar al menú -->
-    <Button layoutX="30" layoutY="30" onAction="#tornarAlMenu" text="Tornar" />
+	<!-- Botó per tornar al menú -->
+	<Button layoutX="30" layoutY="30" onAction="#tornarAlMenu" text="Tornar" />
 
-    <GridPane alignment="CENTER" hgap="50" layoutX="425.0" layoutY="200.0" vgap="20">
+	<GridPane alignment="CENTER" hgap="50" layoutX="425.0" layoutY="200.0"
+		vgap="20">
 
-        <!-- Columna Esquerra -->
-        <Label text="Selecciona l'usuari:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <ComboBox fx:id="clientComboBox" prefWidth="155.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+		<!-- Columna Esquerra -->
+		<Label text="Selecciona l'usuari:" GridPane.columnIndex="0"
+			GridPane.rowIndex="0" />
+		<ComboBox fx:id="clientComboBox" prefWidth="155.0"
+			GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-        <Button onAction="#afegirComanda" prefWidth="155.0" text="Crear nova comanda" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+		<Button onAction="#afegirComanda" prefWidth="155.0"
+			text="Crear nova comanda" GridPane.columnIndex="0"
+			GridPane.rowIndex="2" />
 
-        <!-- Columna Dreta -->
-        <Label text="Selecciona ID de la comanda:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <ComboBox fx:id="comandaComboBox" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></ComboBox>
+		<!-- Columna Dreta -->
+		<Label text="Selecciona ID de la comanda:" GridPane.columnIndex="1"
+			GridPane.rowIndex="0" />
+		<ComboBox fx:id="comandaComboBox" prefHeight="25.0" prefWidth="155.0"
+			GridPane.columnIndex="1" GridPane.rowIndex="1">
+			<opaqueInsets>
+				<Insets />
+			</opaqueInsets>
+		</ComboBox>
 
-        <Label text="Selecciona producte a afegir:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <ComboBox fx:id="producteComboBox" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+		<Label text="Selecciona producte a afegir:" GridPane.columnIndex="1"
+			GridPane.rowIndex="2" />
+		<ComboBox fx:id="producteComboBox" prefWidth="155.0"
+			GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="Quantitat de productes:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField fx:id="quantitatField" promptText="Introdueix quantitat" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		<Label text="Quantitat de productes:" GridPane.columnIndex="1"
+			GridPane.rowIndex="4" />
+		<TextField fx:id="quantitatField" promptText="Introdueix quantitat"
+			GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <Button onAction="#afegirProducteComanda" prefWidth="155.0" text="Afegir producte" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-        
-    </GridPane>
+		<Button onAction="#afegirProducteComanda" prefWidth="155.0"
+			text="Afegir producte" GridPane.columnIndex="1"
+			GridPane.rowIndex="6" />
+		<columnConstraints>
+			<ColumnConstraints />
+			<ColumnConstraints />
+		</columnConstraints>
+		<rowConstraints>
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
+		</rowConstraints>
+
+	</GridPane>
 </AnchorPane>

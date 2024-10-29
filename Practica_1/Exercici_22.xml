@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href=""?>
 <studentslist>
-    <student name="Joan" age="19"/>
-    <student name="Maria" age="20"/>
-    <student name="Arnau" age="25"/>
-    <student name="Azogue" age="25"/>
+	<student name="Joan" age="19" />
+	<student name="Maria" age="20" />
+	<student name="Arnau" age="25" />
+	<student name="Azogue" age="25" />
 </studentslist>
