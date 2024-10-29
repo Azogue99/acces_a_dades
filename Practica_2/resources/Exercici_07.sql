@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS botiga_senzilla;
-
 USE botiga_senzilla;
 
--- Creació de la taula usuaris
 CREATE TABLE usuaris (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(100) NOT NULL,
@@ -10,7 +8,6 @@ CREATE TABLE usuaris (
     PRIMARY KEY (id)
 );
 
--- Creació de la taula comandes
 CREATE TABLE comandes (
     id INT(11) NOT NULL AUTO_INCREMENT,
     id_usuari INT(11) NOT NULL,
