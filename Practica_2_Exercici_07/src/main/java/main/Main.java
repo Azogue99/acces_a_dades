@@ -1,8 +1,5 @@
-
 package main;
 
-import dao.ComandaDAO;
-import dao.UsuariDAO;
 import models.Comanda;
 import models.Usuari;
 
@@ -11,8 +8,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final UsuariDAO usuariDAO = new UsuariDAO();
-    private static final ComandaDAO comandaDAO = new ComandaDAO();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -26,97 +21,94 @@ public class Main {
             System.out.println("0. Sortir");
             System.out.print("Selecciona una opció: ");
             int option = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); // Consume newline
 
             switch (option) {
-                case 1 : {
-                	addNewUser();
-                	break;
-                }
-                case 2 :{
-                	getUserOrders();
-                	break;
-                }
-                case 3 : {
-                	updateUserEmail();
-                	break;
-                }
-                case 4 :{
-                	deleteOrder();
-                	break;
-                }
-                case 5 : {
-                	listAllUsers();
-                	break;
-                }
-                case 0 : {
+                case 1:
+                    addNewUser();
+                    break;
+                case 2:
+                    getUserOrders();
+                    break;
+                case 3:
+                    updateUserEmail();
+                    break;
+                case 4:
+                    deleteOrder();
+                    break;
+                case 5:
+                    listAllUsers();
+                    break;
+                case 0:
                     System.out.println("Sortint...");
                     System.exit(0);
+                default:
+                    System.out.println("Opció invàlida!");
                     break;
-                }
-                default : {
-                	System.out.println("Opció invàlida!");
-                	break;
-                }
             }
         }
     }
 
-    // Method to add a new user
+    // Mètode per afegir un nou usuari
     private static void addNewUser() {
         System.out.print("Introdueix el nom de l'usuari: ");
         String nom = scanner.nextLine();
         System.out.print("Introdueix el correu electrònic de l'usuari: ");
         String correu = scanner.nextLine();
         Usuari usuari = new Usuari(nom, correu);
-        usuariDAO.saveUsuari(usuari);
+        usuari.saveUsuari(usuari);
         System.out.println("Usuari afegit correctament.");
     }
 
-    // Method to get orders by user ID
+    // Mètode per obtenir les comandes d'un usuari per ID
     private static void getUserOrders() {
         System.out.print("Introdueix l'ID de l'usuari: ");
         int userId = scanner.nextInt();
-        List<Comanda> comandes = comandaDAO.getComandesByUsuariId(userId);
+        scanner.nextLine(); // Consume newline
+        Comanda comanda = new Comanda();
+        List<Comanda> comandes = comanda.getComandesByUsuariId(userId);
         if (comandes.isEmpty()) {
             System.out.println("Aquest usuari no té comandes.");
         } else {
-            for (Comanda comanda : comandes) {
-                System.out.println("Producte: " + comanda.getProducte() +
-                        ", Preu: " + comanda.getPreu() +
-                        ", Data: " + comanda.getData());
+            for (Comanda c : comandes) {
+                System.out.println("Producte: " + c.getProducte() +
+                                   ", Preu: " + c.getPreu() +
+                                   ", Data: " + c.getData());
             }
         }
     }
 
-    // Method to update a user's email
+    // Mètode per actualitzar el correu d'un usuari
     private static void updateUserEmail() {
         System.out.print("Introdueix l'ID de l'usuari: ");
         int userId = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine(); // Consume newline
         System.out.print("Introdueix el nou correu electrònic: ");
         String newEmail = scanner.nextLine();
-        usuariDAO.updateEmail(userId, newEmail);
+        Usuari usuari = new Usuari();
+        usuari.updateEmail(userId, newEmail);
         System.out.println("Correu electrònic actualitzat correctament.");
     }
 
-    // Method to delete an order by ID
+    // Mètode per eliminar una comanda per ID
     private static void deleteOrder() {
         System.out.print("Introdueix l'ID de la comanda: ");
         int comandaId = scanner.nextInt();
-        comandaDAO.deleteComanda(comandaId);
+        scanner.nextLine(); // Consume newline
+        Comanda comanda = new Comanda();
+        comanda.deleteComanda(comandaId);
         System.out.println("Comanda eliminada correctament.");
     }
 
-    // Method to list all users
+    // Mètode per llistar tots els usuaris
     private static void listAllUsers() {
-        List<Usuari> usuaris = usuariDAO.getAllUsuaris();
+        Usuari usuari = new Usuari();
+        List<Usuari> usuaris = usuari.getAllUsuaris();
         if (usuaris.isEmpty()) {
             System.out.println("No hi ha usuaris registrats.");
         } else {
-            for (Usuari usuari : usuaris) {
-                System.out.println("Nom: " + usuari.getNom() +
-                        ", Correu: " + usuari.getCorreu());
+            for (Usuari u : usuaris) {
+                System.out.println("Nom: " + u.getNom() + ", Correu: " + u.getCorreu());
             }
         }
     }

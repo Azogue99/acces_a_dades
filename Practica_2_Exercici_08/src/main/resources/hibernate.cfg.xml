@@ -4,7 +4,7 @@
     <session-factory>
         <!-- Propietats de la connexio -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/botiga_senzilla</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/biblioteca</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
 
@@ -15,12 +15,9 @@
         <property name="hibernate.show_sql">true</property>
 
         <!-- Mapeig de les classes -->
-        <mapping class="models.Usuari"/>
-        <mapping class="models.Comanda"/>
+        <mapping class="models.Autor"/>
+        <mapping class="models.Llibre"/>
+        <mapping class="models.Prestec"/>
         
-        <!-- Oculta tots els warnings -->
-        <logger name="org.hibernate">
-		  <level value="info"/> 
-		</logger>
     </session-factory>
 </hibernate-configuration>
