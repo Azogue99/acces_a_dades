@@ -1,0 +1,5 @@
+CREATE OR REPLACE TYPE Llibre AS OBJECT (
+    titol VARCHAR2(100),
+    autor VARCHAR2(100),
+    ISBN VARCHAR2(20)
+);
