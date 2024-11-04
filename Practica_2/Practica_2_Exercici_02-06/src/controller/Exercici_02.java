@@ -56,7 +56,9 @@ public class Exercici_02 {
         inserirProducte.setOnAction(event -> insertProductes());
         inserirClient.setOnAction(event -> insertClients());
     }
-
+    
+    
+    // Inserta una nova categoria a la base de dades
     private void insertCategories() {
         String categoria = categoriaNom.getText();
         String sql = "INSERT INTO categories (nom) VALUES (?)";
@@ -70,6 +72,7 @@ public class Exercici_02 {
         }
     }
 
+    // Inserta un nou producte a la base de dades
     private void insertProductes() {
         String producte = producteNom.getText();
         String preu = productePreu.getText();
@@ -87,6 +90,7 @@ public class Exercici_02 {
         }
     }
 
+    // Inserta un nou client a la base de dades
     private void insertClients() {
         String nom = clientNom.getText();
         String correu = clientCorreu.getText();

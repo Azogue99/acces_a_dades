@@ -1,5 +1,6 @@
 package objects;
 
+// Classe que representa un client amb un identificador i un nom
 public class Client {
     private int id;
     private String nom;
@@ -28,7 +29,7 @@ public class Client {
         this.nom = nom;
     }
 
-    // toString method
+    // Metode toString per representar el client com a cadena de text
     @Override
     public String toString() {
         return nom + " (ID: " + id + ")";

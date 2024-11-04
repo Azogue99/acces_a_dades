@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+//Classe principal que hereta de Application per crear una aplicacio JavaFX
 public class Main extends Application {
 
     @Override
@@ -22,7 +24,8 @@ public class Main extends Application {
         // Codi per tancar recursos si cal
     }
 
+    // Metode main per iniciar l'aplicació
     public static void main(String[] args) {
-        launch(args);
+        launch(args); // Inicia l'aplicació JavaFX
     }
 }

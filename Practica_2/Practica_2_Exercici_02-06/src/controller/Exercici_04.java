@@ -32,6 +32,7 @@ public class Exercici_04 {
 
     private Connection connection;
 
+    // Inicialitza el controlador i carrega clients i productes
     @FXML
     private void initialize() {
         connection = DatabaseConnection.getConnection();
@@ -46,6 +47,7 @@ public class Exercici_04 {
         });
     }
 
+    // Carrega la llista de clients des de la base de dades al ComboBox
     private void carregarClients() {
         String query = "SELECT id, nom FROM clients";
         try (PreparedStatement stmt = connection.prepareStatement(query);
@@ -58,7 +60,8 @@ public class Exercici_04 {
             mostrarError("Error al carregar els clients: " + e.getMessage());
         }
     }
-
+    
+    // Carrega la llista de productes des de la base de dades al ComboBox
     private void carregarProductes() {
         String query = "SELECT id, nom, preu, id_categoria FROM productes";
         try (PreparedStatement stmt = connection.prepareStatement(query);
@@ -72,7 +75,8 @@ public class Exercici_04 {
             mostrarError("Error al carregar els productes: " + e.getMessage());
         }
     }
-
+    
+    // Crea una nova comanda per al client seleccionat
     @FXML
     private void afegirComanda(ActionEvent event) {
         Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
@@ -92,7 +96,8 @@ public class Exercici_04 {
             mostrarError("Error al crear la comanda: " + e.getMessage());
         }
     }
-
+    
+    // Carrega les comandes associades al client seleccionat
     private void carregarComandes() {
         Client clientSeleccionat = clientComboBox.getSelectionModel().getSelectedItem();
         if (clientSeleccionat == null) {
@@ -113,6 +118,7 @@ public class Exercici_04 {
         }
     }
 
+    // Afegeix un producte a la comanda seleccionada amb la quantitat especificada
     @FXML
     private void afegirProducteComanda(ActionEvent event) {
         Comanda comandaSeleccionada = comandaComboBox.getSelectionModel().getSelectedItem();
@@ -140,13 +146,15 @@ public class Exercici_04 {
         }
     }
 
+    // Mostra un missatge d'error amb un Alert
     private void mostrarError(String missatge) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setContentText(missatge);
         alert.showAndWait();
     }
-
+    
+    // Mostra un missatge d'informació amb un Alert
     private void mostrarMissatge(String missatge) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info");
@@ -154,6 +162,7 @@ public class Exercici_04 {
         alert.showAndWait();
     }
 
+    // Torna al menú principal
     @FXML
     private void tornarAlMenu(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

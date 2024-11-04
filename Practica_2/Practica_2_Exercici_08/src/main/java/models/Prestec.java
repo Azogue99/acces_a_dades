@@ -31,8 +31,10 @@ public class Prestec {
     @Temporal(TemporalType.DATE)
     private Date dataDevolucio;
 
+    // Constructor per defecte
     public Prestec() {}
 
+    // Constructor amb parametres
     public Prestec(Llibre llibre, String usuari, Date dataPrestec, Date dataDevolucio) {
         this.llibre = llibre;
         this.usuari = usuari;
@@ -40,91 +42,91 @@ public class Prestec {
         this.dataDevolucio = dataDevolucio;
     }
 
+    // Getters i setters
     public int getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Llibre getLlibre() {
-		return llibre;
-	}
+    public Llibre getLlibre() {
+        return llibre;
+    }
 
-	public void setLlibre(Llibre llibre) {
-		this.llibre = llibre;
-	}
+    public void setLlibre(Llibre llibre) {
+        this.llibre = llibre;
+    }
 
-	public String getUsuari() {
-		return usuari;
-	}
+    public String getUsuari() {
+        return usuari;
+    }
 
-	public void setUsuari(String usuari) {
-		this.usuari = usuari;
-	}
+    public void setUsuari(String usuari) {
+        this.usuari = usuari;
+    }
 
-	public Date getDataPrestec() {
-		return dataPrestec;
-	}
+    public Date getDataPrestec() {
+        return dataPrestec;
+    }
 
-	public void setDataPrestec(Date dataPrestec) {
-		this.dataPrestec = dataPrestec;
-	}
+    public void setDataPrestec(Date dataPrestec) {
+        this.dataPrestec = dataPrestec;
+    }
 
-	public Date getDataDevolucio() {
-		return dataDevolucio;
-	}
+    public Date getDataDevolucio() {
+        return dataDevolucio;
+    }
 
-	public void setDataDevolucio(Date dataDevolucio) {
-		this.dataDevolucio = dataDevolucio;
-	}
+    public void setDataDevolucio(Date dataDevolucio) {
+        this.dataDevolucio = dataDevolucio;
+    }
 
-	// Mètode per guardar el préstec a la base de dades
+    // Metode per guardar el prestec a la base de dades
     public void save() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(this);
+        session.save(this); // Guarda el prestec a la base de dades
         transaction.commit();
         session.close();
     }
 
-    // Mètode per actualitzar el préstec
+    // Metode per actualitzar el prestec
     public void update() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(this);
+        session.update(this); // Actualitza el prestec a la base de dades
         transaction.commit();
         session.close();
     }
 
-    // Mètode per esborrar el préstec
+    // Metode per esborrar el prestec
     public void delete() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(this);
+        session.delete(this); // Elimina el prestec de la base de dades
         transaction.commit();
         session.close();
     }
 
-    // Mètode per trobar un préstec per ID
+    // Metode per trobar un prestec per ID
     public static Prestec findById(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Prestec prestec = session.get(Prestec.class, id);
+        Prestec prestec = session.get(Prestec.class, id); // Obte el prestec per ID
         session.close();
         return prestec;
     }
-    
- // Mètode per trobar préstecs per nom d'usuari
+
+    // Metode per trobar prestecs per nom d'usuari
     public static List<Prestec> findByUser(String usuari) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<Prestec> prestecs = session.createQuery("FROM Prestec WHERE usuari = :usuari", Prestec.class)
                                         .setParameter("usuari", usuari)
-                                        .getResultList();
+                                        .getResultList(); // Obte els prestecs associats a un usuari
         session.close();
         return prestecs;
     }
-
 
     @Override
     public String toString() {

@@ -1,4 +1,3 @@
-
 package models;
 
 import jakarta.persistence.Column;
@@ -41,8 +40,10 @@ public class Comanda {
     @Column(name = "data", nullable = false)
     private Timestamp data;
 
+    // Constructor per defecte
     public Comanda() {}
 
+    // Constructor amb tots els camps
     public Comanda(Usuari usuari, String producte, BigDecimal preu, Timestamp data) {
         this.usuari = usuari;
         this.producte = producte;
@@ -50,6 +51,7 @@ public class Comanda {
         this.data = data;
     }
 
+    // Getters i setters per accedir als camps
     public int getId() {
         return id;
     }
@@ -74,7 +76,7 @@ public class Comanda {
         return data;
     }
     
-    // Get orders by user ID
+    // Metode per obtenir comandes per ID d'usuari
     public List<Comanda> getComandesByUsuariId(int userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "from Comanda where usuari.id = :userId";
@@ -84,7 +86,7 @@ public class Comanda {
         }
     }
 
-    // Delete order by ID
+    // Metode per eliminar una comanda per ID
     public void deleteComanda(int comandaId) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -95,7 +97,7 @@ public class Comanda {
                 transaction.commit();
             }
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null) transaction.rollback(); // Rollback en cas d'error
             e.printStackTrace();
         }
     }

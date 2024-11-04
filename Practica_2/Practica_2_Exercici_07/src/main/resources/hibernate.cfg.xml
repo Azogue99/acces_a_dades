@@ -18,9 +18,5 @@
         <mapping class="models.Usuari"/>
         <mapping class="models.Comanda"/>
         
-        <!-- Oculta tots els warnings -->
-        <logger name="org.hibernate">
-		  <level value="info"/> 
-		</logger>
     </session-factory>
 </hibernate-configuration>

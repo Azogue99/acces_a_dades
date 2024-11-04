@@ -28,13 +28,13 @@ public class Exercici_06 {
         MainMenu.tornarAlMenuPrincipal(stage);
     }
 
-    // Mètode per inicialitzar la connexió amb la base de dades
+    // Metode per inicialitzar la connexió amb la base de dades
     public void initialize() {
         connection = DatabaseConnection.getConnection();
         carregarProductes();
     }
 
-    // Mètode per carregar els productes al ComboBox
+    // Metode per carregar els productes al ComboBox
     private void carregarProductes() {
         try {
             String query = "SELECT id, nom, preu, id_categoria FROM productes";
@@ -55,7 +55,7 @@ public class Exercici_06 {
         }
     }
 
-    // Mètode per eliminar un producte
+    // Metode per eliminar un producte
     @FXML
     private void eliminarProducte() {
         Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
@@ -86,7 +86,7 @@ public class Exercici_06 {
         }
     }
 
-    // Mètode per mostrar missatges d'error
+    // Metode per mostrar missatges d'error
     private void mostrarError(String missatge) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
@@ -94,7 +94,7 @@ public class Exercici_06 {
         alert.showAndWait();
     }
 
-    // Mètode per mostrar missatges informatius
+    // Metode per mostrar missatges informatius
     private void mostrarMissatge(String missatge) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Info");

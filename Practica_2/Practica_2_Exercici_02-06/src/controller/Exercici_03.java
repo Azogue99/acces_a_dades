@@ -30,7 +30,7 @@ public class Exercici_03 {
 
     // Constructor
     public Exercici_03() {
-        // Iniciem la connexió amb la base de dades si cal
+    	
     }
     
     @FXML
@@ -62,6 +62,7 @@ public class Exercici_03 {
         }
     }
 
+    // Consulta i mostra els productes segons la categoria seleccionada
     @FXML
     public void consultarProductes() {
         String selectedCategory = categoriaComboBox.getSelectionModel().getSelectedItem();
@@ -71,7 +72,8 @@ public class Exercici_03 {
             productesTableView.getItems().addAll(productes);
         }
     }
-
+    
+    // Obté la llista de productes d'una categoria específica des de la base de dades
     private List<Producte> obtenirProductes(String categoria) {
         List<Producte> productes = new ArrayList<>();
         String query = "SELECT p.nom AS nom, p.preu AS preu, c.nom AS categoria FROM productes p " +

@@ -25,14 +25,15 @@ public class Exercici_05 {
     private TextField preuField;
 
     private Connection connection;
-
+    
+    // Metode per tornar al menu principal
     @FXML
     private void tornarAlMenu(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         MainMenu.tornarAlMenuPrincipal(stage);
     }
 
-    // Mètode per inicialitzar la connexió amb la base de dades
+    // Metode per inicialitzar la connexio amb la base de dades
     public void initialize() {
         connection = DatabaseConnection.getConnection();
         carregarProductes();
@@ -41,7 +42,7 @@ public class Exercici_05 {
         producteComboBox.setOnAction(event -> carregarPreu());
     }
 
-    // Mètode per carregar els productes al ComboBox
+    // Metode per carregar els productes al ComboBox
     private void carregarProductes() {
         try {
             String query = "SELECT id, nom, preu, id_categoria FROM productes";
@@ -62,7 +63,7 @@ public class Exercici_05 {
         }
     }
 
-    // Mètode per carregar el preu del producte seleccionat
+    // Metode per carregar el preu del producte seleccionat
     private void carregarPreu() {
         Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
         if (producteSeleccionat != null) {
@@ -70,7 +71,7 @@ public class Exercici_05 {
         }
     }
 
-    // Mètode per actualitzar el preu del producte
+    // Metode per actualitzar el preu del producte
     @FXML
     private void actualitzarPreu() {
         Producte producteSeleccionat = producteComboBox.getSelectionModel().getSelectedItem();
@@ -96,7 +97,7 @@ public class Exercici_05 {
         }
     }
 
-    // Mètode per mostrar missatges d'error
+    // Metode per mostrar missatges d'error
     private void mostrarError(String missatge) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
@@ -104,7 +105,7 @@ public class Exercici_05 {
         alert.showAndWait();
     }
 
-    // Mètode per mostrar missatges informatius
+    // Metode per mostrar missatges informatius
     private void mostrarMissatge(String missatge) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Info");

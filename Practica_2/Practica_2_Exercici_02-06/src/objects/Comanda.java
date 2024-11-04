@@ -2,6 +2,7 @@ package objects;
 
 import java.sql.Date;
 
+// Classe que representa una comanda amb un identificador i una data
 public class Comanda {
     private int id;
     private Date dataComanda;
@@ -35,7 +36,7 @@ public class Comanda {
         this.dataComanda = dataComanda;
     }
 
-    // toString method
+    // Metode toString per representar la comanda com a cadena
     @Override
     public String toString() {
         return "Comanda ID: " + id;

@@ -35,6 +35,7 @@ public class MainMenu {
         carregarExercici("/view/Exercici_06.fxml", "Practica 2 - Exercici 6", event);
     }
 
+    // Metode per carregar un exercici donat el path, el titol i s'ha de passar el ActionEvent tambe
     private void carregarExercici(String fxmlPath, String title, ActionEvent event) {
         try {
             // Obtenim l'stage actual des de l'event
@@ -48,6 +49,7 @@ public class MainMenu {
         }
     }
     
+    // Metode per tornar al menu principal
     public static void tornarAlMenuPrincipal(Stage stage) {
         try {
             Parent root = FXMLLoader.load(MainMenu.class.getResource("/view/MainMenu.fxml"));

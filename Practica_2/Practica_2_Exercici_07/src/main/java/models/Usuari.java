@@ -1,4 +1,3 @@
-
 package models;
 
 import java.util.List;
@@ -29,13 +28,16 @@ public class Usuari {
     @Column(name = "correu", nullable = false)
     private String correu;
 
+    // Constructor per defecte
     public Usuari() {}
 
+    // Constructor amb parametres
     public Usuari(String nom, String correu) {
         this.nom = nom;
         this.correu = correu;
     }
 
+    // Getters i setters
     public int getId() {
         return id;
     }
@@ -56,39 +58,39 @@ public class Usuari {
         this.correu = correu;
     }
     
-    // Insert new user
+    // Inserir un nou usuari
     public void saveUsuari(Usuari usuari) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(usuari);
+            session.save(usuari); // Guarda l'usuari a la base de dades
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null) transaction.rollback(); // Rollback en cas d'error
             e.printStackTrace();
         }
     }
 
-    // Get all users
+    // Obtenir tots els usuaris
     public List<Usuari> getAllUsuaris() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Usuari", Usuari.class).list();
+            return session.createQuery("from Usuari", Usuari.class).list(); // Consulta per obtenir tots els usuaris
         }
     }
 
-    // Update user email
+    // Actualitzar el correu d'un usuari
     public void updateEmail(int userId, String newEmail) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Usuari usuari = session.get(Usuari.class, userId);
             if (usuari != null) {
-                usuari.setCorreu(newEmail);
+                usuari.setCorreu(newEmail); // Actualitza el correu de l'usuari
                 session.update(usuari);
                 transaction.commit();
             }
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null) transaction.rollback(); // Rollback en cas d'error
             e.printStackTrace();
         }
     }
