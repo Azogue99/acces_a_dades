@@ -16,3 +16,10 @@ https://drive.google.com/file/d/1N9mawF3Z1jAyx4NFdiJ1SXev8E5VmOMq/view
 <h3>Apunts:</h3>
 https://drive.google.com/file/d/1YI7eRfaCMTAER1Xd5pwr32I9tr46Hoxx/view
 <br>
+<h1>Pràctica 3</h1>
+<h3>Exercicis:</h3>
+https://drive.google.com/file/d/16t33cUNEOAjW1EuXq0-vgDG6jluLWGQ4/view
+<br>
+<h3>Apunts:</h3>
+https://drive.google.com/file/d/1rCaqRdEIpy2M_mLU2vN6DmzrPraWoYde/view
+<br>
