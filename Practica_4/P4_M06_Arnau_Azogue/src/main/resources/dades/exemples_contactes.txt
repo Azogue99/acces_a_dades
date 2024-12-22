@@ -1,0 +1,5 @@
+Anna Garcia, anna.garcia@gmail.com, 123456789
+Joan Roca, joan.roca@gmail.com, 987654321
+Maria Puig, maria.puig@gmail.com, 654987321
+Pere Serra, pere.serra@gmail.com, 321654987
+Laura Font, laura.font@gmail.com, 456123789
